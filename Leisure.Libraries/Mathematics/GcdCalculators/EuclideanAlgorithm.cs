@@ -1,6 +1,6 @@
-﻿using Leisure.Libraries.Interfaces;
+﻿using Leisure.Libraries.Mathematics.Interfaces;
 
-namespace Leisure.Libraries.GcdCalculators;
+namespace Leisure.Libraries.Mathematics.GcdCalculators;
 
 public class EuclideanAlgorithm : IGcdCalculator
 {

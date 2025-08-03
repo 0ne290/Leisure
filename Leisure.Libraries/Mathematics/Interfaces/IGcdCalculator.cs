@@ -1,4 +1,4 @@
-﻿namespace Leisure.Libraries.Interfaces;
+﻿namespace Leisure.Libraries.Mathematics.Interfaces;
 
 public interface IGcdCalculator
 {

@@ -1,6 +1,3 @@
 ﻿namespace Leisure.Libraries.Exceptions;
 
-public class InvariantViolation
-{
-    
-}
+public class InvariantViolationException(string message) : Exception(message);

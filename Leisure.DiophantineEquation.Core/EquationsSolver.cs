@@ -1,28 +1,18 @@
-﻿namespace Leisure.DiophantineEquation.Core;
+﻿using Leisure.Libraries.Exceptions;
+using Leisure.Libraries.Mathematics.Interfaces;
 
-public class LinearEquationSolver(int a, int b)
+namespace Leisure.DiophantineEquation.Core;
+
+public class EquationsSolver
 {
-    public List<Solution> Solve()
+    public LinearEquation.GeneralSolution Solve(IGcdCalculator gcdCalculator, LinearEquation equation)
     {
+        var gcd = gcdCalculator.Calculate(equation.A, equation.B);
+        if (equation.C % gcd != 0)
+            throw new InvariantViolationException("Equation has no solutions.");
+        
+        
+        
         throw new NotImplementedException();
     }
-
-    private static int CalculateGcdUsingEuclideanAlgorithm(int a, int b)
-    {
-        if (a <= b)
-            (a, b) = (b, a);
-
-        int aModB;
-        do
-        {
-            aModB = a % b;
-            (a, b) = (b, aModB);
-        } while (aModB == 0);
-
-        return b;
-    }
-
-    public int A { get; } = a;
-
-    public int B { get; } = b;
 }
