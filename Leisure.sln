@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leisure.DiophantineEquation.Core.Tests", "Leisure.DiophantineEquation.Core.Tests\Leisure.DiophantineEquation.Core.Tests.csproj", "{FAFEEA1A-77B4-4F0E-B56F-4B63EFBFFE55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leisure.DiophantineEquation.Core", "Leisure.DiophantineEquation.Core\Leisure.DiophantineEquation.Core.csproj", "{740CD865-D2B3-45EE-9C83-F6FBB7B0FC09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leisure.DiophantineEquation.Presentation", "Leisure.DiophantineEquation.Presentation\Leisure.DiophantineEquation.Presentation.csproj", "{84F5B6E5-9188-4C6E-B4E1-8F52EA24B9AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FAFEEA1A-77B4-4F0E-B56F-4B63EFBFFE55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAFEEA1A-77B4-4F0E-B56F-4B63EFBFFE55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAFEEA1A-77B4-4F0E-B56F-4B63EFBFFE55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAFEEA1A-77B4-4F0E-B56F-4B63EFBFFE55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{740CD865-D2B3-45EE-9C83-F6FBB7B0FC09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{740CD865-D2B3-45EE-9C83-F6FBB7B0FC09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{740CD865-D2B3-45EE-9C83-F6FBB7B0FC09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{740CD865-D2B3-45EE-9C83-F6FBB7B0FC09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84F5B6E5-9188-4C6E-B4E1-8F52EA24B9AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84F5B6E5-9188-4C6E-B4E1-8F52EA24B9AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84F5B6E5-9188-4C6E-B4E1-8F52EA24B9AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84F5B6E5-9188-4C6E-B4E1-8F52EA24B9AB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
