@@ -18,4 +18,8 @@
         <Using Include="Xunit"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Leisure.EquationsWithOneVariable.Core\Leisure.EquationsWithOneVariable.Core.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace Leisure.DiophantineEquation.Presentation;
+﻿namespace Leisure.EquationsWithOneVariable.Presentation;
 
 class Program
 {
