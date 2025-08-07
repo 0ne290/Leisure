@@ -13,10 +13,10 @@ public class Solver(ILogger<Solver> logger)
         stopwatch.Start();
 
         var i = 0;
-        var a = interval.Infimum;
-        var b = interval.Supremum;
-        var intervalLength = (b - a) / 2;
-        var xi = (a + b) / 2;
+        var ai = interval.Infimum;
+        var bi = interval.Supremum;
+        var halfDeltai = (bi - ai) / 2;
+        var xi = (ai + bi) / 2;
         var lastCalculatedRoots = new ClosedArray<double>(3)
         {
             [i] = xi
@@ -25,17 +25,17 @@ public class Solver(ILogger<Solver> logger)
 
         logger.LogDebug("i: {i}; x[i]: {xi}; f(x[i]): {fxi}.", i, xi, fxi);
 
-        while (!fxi.AreEqualWithinAccuracy(0, accuracy.ByY) || intervalLength >= accuracy.ByX)
+        while (!fxi.AreEqualWithinAccuracy(0, accuracy.ByY) || halfDeltai >= accuracy.ByX)
         {
             i++;
 
-            if (function(a) * fxi <= 0)
-                b = xi;
+            if (function(ai) * fxi <= 0)
+                bi = xi;
             else
-                a = xi;
-            intervalLength = (b - a) / 2;
+                ai = xi;
+            halfDeltai = (bi - ai) / 2;
 
-            xi = (a + b) / 2;
+            xi = (ai + bi) / 2;
             lastCalculatedRoots[i] = xi;
             fxi = function(xi);
 
@@ -47,16 +47,17 @@ public class Solver(ILogger<Solver> logger)
         return new Solution(xi, i + 1, 1 + 2 * i, stopwatch.ElapsedMilliseconds, CalculateConvergenceParameter(lastCalculatedRoots, i));
     }
     
-    public Solution SolveByGoldenSectionMethod(Func<double, double> function, Accuracy accuracy, Interval interval)
+    public Solution SolveByGoldenRatioMethod(Func<double, double> function, Accuracy accuracy, Interval interval)
     {
         var stopwatch = new Stopwatch();
         stopwatch.Start();
 
         var i = 0;
-        var a = interval.Infimum;
-        var b = interval.Supremum;
-        var intervalLength = (b - a) / 2;
-        var xi = (a + b) / 2;
+        var ai = interval.Infimum;
+        var bi = interval.Supremum;
+        var deltai = bi - ai;
+        var halfDeltai = deltai / 2;
+        var xi = (ai + bi) / 2;
         var lastCalculatedRoots = new ClosedArray<double>(3)
         {
             [i] = xi
@@ -65,14 +66,20 @@ public class Solver(ILogger<Solver> logger)
 
         logger.LogDebug("i: {i}; x[i]: {xi}; f(x[i]): {fxi}.", i, xi, fxi);
 
-        while (!fxi.AreEqualWithinAccuracy(0, accuracy.ByY) || intervalLength >= accuracy.ByX)
+        while (!fxi.AreEqualWithinAccuracy(0, accuracy.ByY) || halfDeltai >= accuracy.ByX)
         {
             i++;
-
-            if (function(a) * fxi <= 0)
-                b = xi;
+            
+            var deltaiPlus1 = deltai / Constants.GoldenRatio;
+            var di = ai + deltaiPlus1;
+            if (function(ai) * function(di) <= 0)
+                bi = di;
             else
-                a = xi;
+            {
+                var deltaiPlus2 = deltaiPlus1 / Constants.GoldenRatio;
+                ai = ai + deltaiPlus2;
+            }
+            
             intervalLength = (b - a) / 2;
 
             xi = (a + b) / 2;
