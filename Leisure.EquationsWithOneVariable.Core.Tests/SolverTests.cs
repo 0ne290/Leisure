@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Leisure.Libraries;
+using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace Leisure.EquationsWithOneVariable.Core.Tests;

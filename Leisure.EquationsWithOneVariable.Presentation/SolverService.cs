@@ -1,4 +1,5 @@
 ﻿using Leisure.EquationsWithOneVariable.Core;
+using Leisure.Libraries;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -8,11 +9,11 @@ public class SolverService(ILogger<SolverService> logger, Solver solver) : Backg
 {
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        var function = (double x) => 2 * Math.Pow(x, 2) - 5 - Math.Pow(2, x);
         var accuracy = new Accuracy(1E-6, 1E-6);
         var interval = new Interval(-10, 10);
-        var x = solver.SolveByDichotomyMethod(function, accuracy, interval);
-        logger.LogInformation("equation: 2x^2 - 5 - 2^x = 0; accuracy: {@accuracy}, interval: {@interval}; x: {x}; f(x): {fx}.", accuracy, interval, x, function(x));
+        
+        var solution = solver.SolveByDichotomyMethod(Function, accuracy, interval);
+        logger.LogInformation("equation: 2x^2 - 5 - 2^x = 0; accuracy: {@accuracy}, interval: {@interval}; solution: {@solution}; f(x): {fx}.", accuracy, interval, solution, Function(solution.X));
         
         /*while (!stoppingToken.IsCancellationRequested)
         {
@@ -20,5 +21,7 @@ public class SolverService(ILogger<SolverService> logger, Solver solver) : Backg
         }*/
 
         return Task.CompletedTask;
+        
+        double Function(double x) => 2 * Math.Pow(x, 2) - 5 - Math.Pow(2, x);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Leisure.EquationsWithOneVariable.Core;
+﻿namespace Leisure.Libraries.Extensions;
 
 public static class DoubleExtensions
 {

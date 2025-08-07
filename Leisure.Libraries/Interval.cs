@@ -1,6 +1,7 @@
 ﻿using Leisure.Libraries.Exceptions;
+using Leisure.Libraries.Extensions;
 
-namespace Leisure.EquationsWithOneVariable.Core;
+namespace Leisure.Libraries;
 
 public class Interval
 {
