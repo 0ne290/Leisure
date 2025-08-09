@@ -13,6 +13,7 @@ public class Solver(ILogger<Solver> logger)
         stopwatch.Start();
 
         var i = 0;
+        var functionEvaluationsNumber = 0;
         var ai = interval.Infimum;
         var bi = interval.Supremum;
         var halfDeltai = (bi - ai) / 2;
@@ -21,7 +22,8 @@ public class Solver(ILogger<Solver> logger)
         {
             [i] = xi
         };
-        var fxi = function(xi);
+        var fxi = FunctionWrapper(xi);
+        var fai = FunctionWrapper(ai);
 
         logger.LogDebug("i: {i}; x[i]: {xi}; f(x[i]): {fxi}.", i, xi, fxi);
 
@@ -29,22 +31,31 @@ public class Solver(ILogger<Solver> logger)
         {
             i++;
 
-            if (function(ai) * fxi <= 0)
+            if (fai * fxi <= 0)
                 bi = xi;
             else
+            {
                 ai = xi;
+                fai = FunctionWrapper(ai);
+            }
             halfDeltai = (bi - ai) / 2;
 
             xi = (ai + bi) / 2;
             lastCalculatedRoots[i] = xi;
-            fxi = function(xi);
+            fxi = FunctionWrapper(xi);
 
             logger.LogDebug("i: {i}; x[i]: {xi}; f(x[i]): {fxi}.", i, xi, fxi);
         }
 
         stopwatch.Stop();
 
-        return new Solution(xi, i + 1, 1 + 2 * i, stopwatch.ElapsedMilliseconds, CalculateConvergenceParameter(lastCalculatedRoots, i));
+        return new Solution(xi, i + 1, functionEvaluationsNumber, stopwatch.ElapsedMilliseconds, CalculateConvergenceParameter(lastCalculatedRoots, i));
+
+        double FunctionWrapper(double arg)
+        {
+            functionEvaluationsNumber++;
+            return function(arg);
+        }
     }
     
     public Solution SolveByGoldenRatioMethod(Func<double, double> function, Accuracy accuracy, Interval interval)
@@ -53,6 +64,7 @@ public class Solver(ILogger<Solver> logger)
         stopwatch.Start();
 
         var i = 0;
+        var functionEvaluationsNumber = 0;
         var ai = interval.Infimum;
         var bi = interval.Supremum;
         var deltai = bi - ai;
@@ -62,7 +74,8 @@ public class Solver(ILogger<Solver> logger)
         {
             [i] = xi
         };
-        var fxi = function(xi);
+        var fxi = FunctionWrapper(xi);
+        var fai = FunctionWrapper(ai);
 
         logger.LogDebug("i: {i}; x[i]: {xi}; f(x[i]): {fxi}.", i, xi, fxi);
 
@@ -72,26 +85,34 @@ public class Solver(ILogger<Solver> logger)
             
             var deltaiPlus1 = deltai / Constants.GoldenRatio;
             var di = ai + deltaiPlus1;
-            if (function(ai) * function(di) <= 0)
+            if (fai * FunctionWrapper(di) <= 0)
                 bi = di;
             else
             {
                 var deltaiPlus2 = deltaiPlus1 / Constants.GoldenRatio;
-                ai = ai + deltaiPlus2;
+                var ci = ai + deltaiPlus2;
+                ai = ci;
+                fai = FunctionWrapper(ai);
             }
-            
-            intervalLength = (b - a) / 2;
+            deltai = bi - ai;
+            halfDeltai = deltai / 2;
 
-            xi = (a + b) / 2;
+            xi = (ai + bi) / 2;
             lastCalculatedRoots[i] = xi;
-            fxi = function(xi);
+            fxi = FunctionWrapper(xi);
 
             logger.LogDebug("i: {i}; x[i]: {xi}; f(x[i]): {fxi}.", i, xi, fxi);
         }
 
         stopwatch.Stop();
 
-        return new Solution(xi, i + 1, 1 + 2 * i, stopwatch.ElapsedMilliseconds, CalculateConvergenceParameter(lastCalculatedRoots, i));
+        return new Solution(xi, i + 1, functionEvaluationsNumber, stopwatch.ElapsedMilliseconds, CalculateConvergenceParameter(lastCalculatedRoots, i));
+
+        double FunctionWrapper(double arg)
+        {
+            functionEvaluationsNumber++;
+            return function(arg);
+        }
     }
 
     private static double CalculateConvergenceParameter(ClosedArray<double> lastCalculatedRoots, int i)
